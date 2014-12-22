@@ -33,3 +33,102 @@ the generation of a class list and an automatic constructor.
 %end
 */
 
+
+%hook SBUIController
+
+-(void)activeInterfaceOrientationDidChangeToOrientation:(int)activeInterfaceOrientation willAnimateWithDuration:(double)duration fromOrientation:(int)orientation { 
+	
+	if (activeInterfaceOrientation == 2) {
+
+		NSLog(@"ra86: interfering with activeInterfaceOrientationDidChangeToOrientation");
+		return;
+
+	}
+
+	else {
+
+		%log; 
+		%orig;
+
+	}
+
+}
+
+-(void)activeInterfaceOrientationWillChangeToOrientation:(int)activeInterfaceOrientation {
+
+	if (activeInterfaceOrientation == 2) {
+
+		NSLog(@"ra86: interfering with activeInterfaceOrientationWillChangeToOrientation");
+		return;
+
+	}
+
+	else {
+
+		%log; 
+		%orig;
+		
+	}
+
+}
+
+-(void)window:(id)window willAnimateRotationToInterfaceOrientation:(int)interfaceOrientation duration:(double)duration { 
+	
+	if (interfaceOrientation == 2) {
+
+		NSLog(@"ra86: interfering with window willAnimateRotationToInterfaceOrientation");
+		return;
+
+	}
+
+	else {
+
+		%log; 
+		%orig;
+
+	}
+
+}
+
+-(void)window:(id)window willRotateToInterfaceOrientation:(int)interfaceOrientation duration:(double)duration { 
+	
+	if (interfaceOrientation == 2) {
+
+		NSLog(@"ra86: interfering with window willRotateToInterfaceOrientation");
+		return;
+
+	}
+
+	else {
+
+		%log; 
+		%orig;
+
+	}
+
+}
+
+-(BOOL)window:(id)window shouldAutorotateToInterfaceOrientation:(int)interfaceOrientation { 
+
+	if (interfaceOrientation == 2) {
+
+		NSLog(@"ra86: interfering with window shouldAutorotateToInterfaceOrientation");
+		return NO;
+
+	}
+
+	else {
+
+		%log; 
+		BOOL r = %orig; 
+		NSLog(@" = %d", r); 
+		return r; 
+
+	}
+
+}
+
+
+
+
+%end
