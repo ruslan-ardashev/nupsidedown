@@ -1,0 +1,9 @@
+Package: com.ruslanArdashev.nupsidedown
+Name: nupsidedown
+Depends: firmware (>= 8.0), mobilesubstrate
+Version: 0.1
+Architecture: iphoneos-arm
+Description: Prevent upside down Springboard on Unlock or In All Cases!
+Maintainer: Ruslan Ardashev <ruslan.ardashev@duke.edu>
+Author: Ruslan Ardashev <ruslan.ardashev@duke.edu>
+Section: Tweaks
