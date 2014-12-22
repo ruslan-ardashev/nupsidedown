@@ -1,39 +1,16 @@
-/* How to Hook with Logos
-Hooks are written with syntax similar to that of an Objective-C @implementation.
-You don't need to #include <substrate.h>, it will be done automatically, as will
-the generation of a class list and an automatic constructor.
+////////////////////////////////////////////////////////////////////////////////////////////
+//
+// nupsidedown by Ruslan Ardashev 
+// ruslan.ardashev@duke.edu
+// www.ruslanArdashev.com
+// Copyright 2014-2015
+//
+////////////////////////////////////////////////////////////////////////////////////////////
 
-%hook ClassName
+// KNOWN ISSUE(s):
+// - Notifications appear on bottom, even when rotated upside down
 
-// Hooking a class method
-+ (id)sharedInstance {
-	return %orig;
-}
-
-// Hooking an instance method with an argument.
-- (void)messageName:(int)argument {
-	%log; // Write a message about this call, including its class, name and arguments, to the system log.
-
-	%orig; // Call through to the original function with its original arguments.
-	%orig(nil); // Call through to the original function with a custom argument.
-
-	// If you use %orig(), you MUST supply all arguments (except for self and _cmd, the automatically generated ones.)
-}
-
-// Hooking an instance method with no arguments.
-- (id)noArguments {
-	%log;
-	id awesome = %orig;
-	[awesome doSomethingElse];
-
-	return awesome;
-}
-
-// Always make sure you clean up after yourself; Not doing so could have grave consequences!
-%end
-*/
-
-
+// UIRotation
 %hook SBUIController
 
 -(void)activeInterfaceOrientationDidChangeToOrientation:(int)activeInterfaceOrientation willAnimateWithDuration:(double)duration fromOrientation:(int)orientation { 
@@ -128,7 +105,163 @@ the generation of a class list and an automatic constructor.
 
 }
 
+%end
+
+// Wallpaper Rotation
+%hook SBWallpaperController
+
+-(void)activeInterfaceOrientationDidChangeToOrientation:(int)activeInterfaceOrientation willAnimateWithDuration:(double)duration fromOrientation:(int)orientation { 
+	
+	if (activeInterfaceOrientation == 2) {
+
+		NSLog(@"ra86: activeInterfaceOrientationDidChangeToOrientation");
+		return;
+
+	}
+
+	else {
+
+		%log; 
+		%orig;
+
+	}
+	
+
+}
+
+-(void)activeInterfaceOrientationWillChangeToOrientation:(int)activeInterfaceOrientation { 
+
+	if (activeInterfaceOrientation == 2) {
+
+		NSLog(@"ra86: activeInterfaceOrientationWillChangeToOrientation");
+		return;
+
+	}
+
+	else {
+
+		%log; 
+		%orig; 
+
+	}
 
 
+}
+
+-(void)willAnimateRotationToInterfaceOrientation:(int)interfaceOrientation duration:(double)duration { 
+
+	if (interfaceOrientation == 2) {
+
+			NSLog(@"ra86: willAnimateRotationToInterfaceOrientation");
+			return;
+
+	}
+
+	else {
+
+		%log; 
+		%orig; 
+
+	}
+
+}
+
+-(void)orientationSource:(int)source didRotateFromInterfaceOrientation:(int)interfaceOrientation { 
+
+	if (interfaceOrientation == 2) {
+
+		NSLog(@"ra86: orientationSource,didRotateFromInterfaceOrientation");
+		return;
+
+	}
+
+	else {
+
+		%log; 
+		%orig; 
+
+	}
+
+}
+
+-(void)orientationSource:(int)source willAnimateRotationToInterfaceOrientation:(int)interfaceOrientation duration:(double)duration { 
+
+	if (interfaceOrientation == 2) {
+
+		NSLog(@"ra86: orientationSource,willAnimateRotationToInterfaceOrientation");
+		return;
+
+	}
+
+	else {
+
+		%log; 
+		%orig; 
+
+	}
+
+	
+
+}
+
+-(void)orientationSource:(int)source willRotateToInterfaceOrientation:(int)interfaceOrientation duration:(double)duration { 
+
+	if (interfaceOrientation == 2) {
+
+		NSLog(@"ra86: orientationSource,willAnimateRotationToInterfaceOrientation");
+		return;
+
+	}
+
+	else {
+
+		%log; 
+		%orig;
+
+	}
+
+}
+
+
+-(BOOL)_isAcceptingOrientationChangesFromSource:(int)source { 
+
+	%log; 
+	BOOL r = %orig; 
+	NSLog(@" = %d", r); 
+	return r; 
+
+}
+
+-(id)initWithOrientation:(int)orientation variant:(int)variant { 
+
+	%log; 
+	id r;
+
+	if (orientation == 2) {
+
+		r = %orig(0, variant);
+
+	}
+
+	else {
+
+		r = %orig; 
+
+	}
+
+	NSLog(@" = %@", r); 
+	return r; 
+
+}
 
 %end
+
+
+
+
+
+
+
+
+
+
