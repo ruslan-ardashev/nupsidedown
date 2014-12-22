@@ -3,7 +3,7 @@ Name: nupsidedown
 Depends: firmware (>= 8.0), mobilesubstrate
 Version: 1.0
 Architecture: iphoneos-arm
-Description: Prevent upside down Springboard on Unlock or In All Cases!
+Description: No upside-down Springboard, no configuration necessary!
 Maintainer: Ruslan Ardashev <ruslan.ardashev@duke.edu>
 Author: Ruslan Ardashev <ruslan.ardashev@duke.edu>
 Section: Tweaks
